@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redis Viewer</title>
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,300,100,300italic,100italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/includes/jsTree/tree.jquery.js"></script>
+    <script src="/includes/rv.js"></script>
+    <link rel="stylesheet" href="/includes/jsTree/jqtree.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css" data-type="general"/>
+</head>
+<body>
+
+<table id="container">
+    <tr>
+        <td style="width: 400px">
+            <div id="tree" data-url="/r.php?m=tree"></div>
+        </td>
+        <td>
+            <div id="data">
+                <h1></h1>
+                <div class="data"></div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+<script>
+    $(function () {
+        rv.init();
+    })
+</script>
+</body>
+</html>
