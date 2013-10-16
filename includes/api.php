@@ -93,11 +93,8 @@ class api
                 $response['size'] = strlen($response['value']);
                 $u = unserialize($response['value']);
                 $response['data'] = $response['value'];
-                if ($u !== false) {
-                    $u['trololo'] = rand(0, 100);
+                if ($u !== false)
                     $response[data] = '<pre>' . print_r($u, true) . '</pre>';
-                }
-
 
                 break;
             }
