@@ -8,6 +8,15 @@ class api
 {
     public $redis;
 
+    private $types = array(
+        0 => 'not found',
+        1 => 'string',
+        2 => 'set',
+        3 => 'list',
+        4 => 'zset',
+        5 => 'hash'
+    );
+
     public function __construct()
     {
         $this->redis = new Redis();
@@ -73,34 +82,48 @@ class api
         if (!$this->redis->exists($key))
             return $response;
 
-        $response['type'] = $this->redis->type($key);
-        $response['data'] = 'trololo';
+        $response['type'] = $this->types[$this->redis->type($key)];
+        //$response['data'] = 'trololo';
         $response['ttl'] = $this->redis->ttl($key);
 
         switch ($response['type']) {
             case 'string':
-                $response['value'] = $this->redis->get($_GET['key']);
+            {
+                $response['value'] = $this->redis->get($key);
                 $response['size'] = strlen($response['value']);
-                break;
+                $u = unserialize($response['value']);
+                $response['data'] = $response['value'];
+                if ($u !== false) {
+                    $u['trololo'] = rand(0, 100);
+                    $response[data] = '<pre>' . print_r($u, true) . '</pre>';
+                }
 
+
+                break;
+            }
             case 'hash':
-                $response['value'] = $this->redis->hGetAll($_GET['key']);
+            {
+                $response['value'] = $this->redis->hGetAll($key);
                 $response['size'] = count($response['value']);
                 break;
-
+            }
             case 'list':
-                $response['size'] = $this->redis->lLen($_GET['key']);
+            {
+                $response['size'] = $this->redis->lLen($key);
                 break;
-
+            }
             case 'set':
-                $response['value'] = $this->redis->sMembers($_GET['key']);
+            {
+                $response['value'] = $this->redis->sMembers($key);
                 $response['size'] = count($response['value']);
                 break;
-
+            }
             case 'zset':
-                $response['value'] = $this->redis->zRange($_GET['key'], 0, -1);
+            {
+                $response['value'] = $this->redis->zRange($key, 0, -1);
                 $response['size'] = count($response['value']);
                 break;
+            }
         }
 
         return $response;

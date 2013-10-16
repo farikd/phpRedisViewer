@@ -10,6 +10,12 @@ html, body {
     padding: 20px;
 }
 
+pre, code {
+    font-family: 'Roboto';
+    font-size: 14px;
+    line-height: 1.5;
+}
+
 #container td {
     vertical-align: top
 }

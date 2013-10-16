@@ -24,10 +24,10 @@ rv = {
     load: function (key) {
 
         $('#data h1').text(key);
-        $.post('/r.php?m=load', {key: key}, function (data) {
-
+        var ms = new Date().getTime();
+        $.post('/r.php?m=load&ms='+ms, {key: key}, function (data) {
+            console.log(data);
             $('#data .data').html(data.data);
-
         })
     }
 }
