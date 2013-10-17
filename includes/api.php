@@ -29,8 +29,8 @@ class api
         $response = array('label' => 'root');
 
         $keys = $this->redis->keys('*');
-        if(!count($keys))
-            return array(array('label'=>'empty'));
+        if (!count($keys))
+            return array(array('label' => 'empty'));
 
 
         foreach ($keys as $key) {
@@ -46,7 +46,7 @@ class api
                     $fullpath = $value;
 
                 if (!isset($d['children'][$value])) {
-                    $d['children'][$value] = array('fullpath' => $fullpath, 'label' => $value);
+                    $d['children'][$value] = array('fullpath' => $fullpath, 'label' => $value, 'id' => crc32($fullpath));
                 }
                 $d = & $d['children'][$value];
             }

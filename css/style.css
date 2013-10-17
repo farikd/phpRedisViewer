@@ -28,7 +28,6 @@ html, body {
     left: 0;
     bottom: 0;
     margin: 0;
-    overflow: auto;
     width: 400px;
     padding-left: 1em;
 }
@@ -50,5 +49,9 @@ html, body {
     right: 0;
     bottom: 0;
     left: 440px;
+    overflow: scroll;
+}
+
+#data .data{
 
 }

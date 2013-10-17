@@ -5,6 +5,7 @@
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300,100,300italic,100italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="/includes/jsTree/tree.jquery.js"></script>
+    <script src="/includes/storage/jquery.storageapi.js"></script>
     <script src="/includes/rv.js"></script>
     <link rel="stylesheet" href="/includes/jsTree/jqtree.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css" data-type="general"/>
@@ -13,7 +14,9 @@
 <div id="container">
 
     <div id="sidebar">
-        <div id="tree" data-url="/r.php?m=tree"></div>
+        <a href="#" onclick="rv.treeRefresh(); return false;">refresh tree</a>
+
+        <div id="tree"></div>
     </div>
 
 
@@ -26,6 +29,7 @@
 
 <script>
     $(function () {
+
         rv.init();
     })
 </script>
