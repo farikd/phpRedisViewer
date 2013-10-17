@@ -1,4 +1,6 @@
 html, body {
+    margin: 0;
+    padding: 0;
     background-color: #FFF;
     color: #333;
     font-family: 'Roboto';
@@ -6,24 +8,47 @@ html, body {
     font-weight: 300;
     font-size: 14px;
     line-height: 1.5;
+}
+
+#container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    overflow: hidden;
 }
 
-pre, code {
-    font-family: 'Roboto';
-    font-size: 14px;
-    line-height: 1.5;
-}
+#sidebar {
 
-#container td {
-    vertical-align: top
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    overflow: auto;
+    width: 400px;
+    padding-left: 1em;
 }
 
 #tree {
-
+    position: fixed;
+    top: 100px;
+    left: 0;
+    bottom: 0;
+    overflow: auto;
+    margin: 0;
+    padding: 0 0 0 20px;
+    width: 400px;
 }
 
 #data {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 440px;
 
 }

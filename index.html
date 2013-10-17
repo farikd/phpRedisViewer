@@ -10,26 +10,25 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css" data-type="general"/>
 </head>
 <body>
+<div id="container">
 
-<table id="container">
-    <tr>
-        <td style="width: 400px">
-            <div id="tree" data-url="/r.php?m=tree"></div>
-        </td>
-        <td>
-            <div id="data">
-                <h1></h1>
-                <div class="data"></div>
-            </div>
-        </td>
-    </tr>
-</table>
+    <div id="sidebar">
+        <div id="tree" data-url="/r.php?m=tree"></div>
+    </div>
 
+
+    <div id="data">
+        <h1></h1>
+
+        <div class="data"></div>
+    </div>
+</div>
 
 <script>
     $(function () {
         rv.init();
     })
 </script>
+
 </body>
 </html>
