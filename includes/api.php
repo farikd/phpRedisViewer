@@ -93,16 +93,11 @@ class api
             {
                 $response['value'] = $this->redis->get($key);
                 $response['size'] = strlen($response['value']);
-
-                $u = unserialize($response['value']);
                 $response['data'] = $response['value'];
-                if ($u !== false) {
-                    $response[data] = '<pre>' . print_r($u, true) . '</pre>';
-                } else {
-                    $u = json_decode($response['value'], true);
-                    if ($u !== null)
-                        $response[data] = '<pre>' . print_r($u, true) . '</pre>';
-                }
+
+                $decoded = decode_string($response['value']);
+                if ($decoded !== null)
+                    $response['data'] = '<pre>' . $decoded . '</pre>';
 
                 break;
             }
@@ -132,8 +127,23 @@ class api
             }
             case 'zset':
             {
+
                 $response['value'] = $this->redis->zRange($key, 0, -1);
                 $response['size'] = count($response['value']);
+
+                $response['data'] = '<table class="zset">';
+                foreach ($response['value'] as $value) {
+                    $score = $this->redis->zScore($response['key'], $value);
+
+
+                    $decoded = decode_string($value);
+                    if ($decoded !== null)
+                        $value = '<pre>' . $decoded . '</pre>';
+
+                    $response['data'] .= '<tr><td>' . $score . '</td><td>' . $value . '</td></tr>';
+                }
+                $response['data'] .= '</table>';
+
                 break;
             }
         }
