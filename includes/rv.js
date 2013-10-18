@@ -2,7 +2,6 @@ rv = {
 
     tree: null,
     storage: null,
-    state: null,
 
     init: function () {
         rv.storage = $.localStorage;
@@ -10,7 +9,7 @@ rv = {
 
 
         rv.tree.bind('tree.init', function () {
-            console.log('tree init');
+
         });
         rv.tree.bind('tree.click', rv.nodeClick);
         rv.tree.bind('tree.select', rv.nodeSelect);
@@ -37,17 +36,22 @@ rv = {
     getState: function () {
         var state = rv.tree.tree('getState');
         rv.storage.set('state', state);
-        console.log(state);
     },
 
     setState: function () {
-        rv.tree.tree('setState', rv.storage.get('state'));
-        
+        var state = rv.storage.get('state')
+        rv.tree.tree('setState', state);
+
+        var node = rv.tree.tree('getSelectedNode');
+        if (node) {
+            rv.tree.tree('selectNode', node);
+            rv.load(node.fullpath);
+        }
     },
 
     load: function (key) {
-
         $('#data h1').text(key);
+        $('#data .data').html('');
         var ms = new Date().getTime();
         $.post('/r.php?m=load&ms=' + ms, {key: key}, function (data) {
             $('#data .data').html(data.data);
@@ -56,33 +60,18 @@ rv = {
 
     nodeClick: function (event) {
         var node = event.node;
-        rv.tree.tree('selectNode', node);
-        if (node.children.length > 0) {
+        if (node.children.length > 0)
             rv.tree.tree('toggle', node);
-        }
-        return false;
-
-
-        if (node.children.length > 0) {
-            rv.tree.tree('toggle', node);
-        } else if (node.fullpath) {
-            rv.tree.tree('selectNode', node);
-            rv.load(node.fullpath);
-        }
         rv.getState();
+
     },
 
     nodeSelect: function (e) {
-        console.log('select');
-        if (e.node) {
-            console.log('node selected');
+        if (e.node)
             if (e.node.children.length == 0) {
-                console.log('no children');
                 rv.load(e.node.fullpath);
                 rv.changeState();
             }
-        }
-
     },
 
     changeState: function () {
