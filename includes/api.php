@@ -104,6 +104,13 @@ class api
             {
                 $response['value'] = $this->redis->hGetAll($key);
                 $response['size'] = count($response['value']);
+
+                $response['data'] = '<table class="hash">';
+                foreach ($response['value'] as $hkey => $value) {
+                    $response['data'] .= '<tr><td>' . $key . '</td><td>' . $value . '</td></tr>';
+                }
+                $response['data'] .= '</table>';
+
                 break;
             }
             case 'list':

@@ -55,7 +55,8 @@ rv = {
         var ms = new Date().getTime();
         $.post('/r.php?m=load&ms=' + ms, {key: key}, function (data) {
             $('#data .data').html(data.data);
-        })
+            console.log(data);
+        });
     },
 
     nodeClick: function (event) {
