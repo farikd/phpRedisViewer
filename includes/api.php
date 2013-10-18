@@ -93,10 +93,16 @@ class api
             {
                 $response['value'] = $this->redis->get($key);
                 $response['size'] = strlen($response['value']);
+
                 $u = unserialize($response['value']);
                 $response['data'] = $response['value'];
-                if ($u !== false)
+                if ($u !== false) {
                     $response[data] = '<pre>' . print_r($u, true) . '</pre>';
+                } else {
+                    $u = json_decode($response['value'], true);
+                    if ($u !== null)
+                        $response[data] = '<pre>' . print_r($u, true) . '</pre>';
+                }
 
                 break;
             }
